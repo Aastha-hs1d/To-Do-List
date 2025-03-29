@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    background-color: #bcd4d0
+}
+.container{
+    background-color: white;
+    height: 80vh;
+    width: 30vw;
+    border-radius: 3rem;
+    box-shadow: 2px 2px 40px #8c948e;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: start;
+    align-items: center;
+}
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+h1{
+    font-family: "Poppins", sans-serif;
+    color: #543d3b;
+}
+.heading img{
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+}
+button{
+    border-style: none;
+    border-radius: 50%;
+    color: #444645;
+    background-color: white;
+    height: 2rem;
+    width: 2rem;
+    font-size: 15px;
+}
+input{
+ border-style: none;
+ font-family: "Poppins", sans-serif;
+}
+input:focus{
+    border-style: none;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+}
+.inputTask ul li{
+    display: flex;
+}
+
+button:hover{
+    background-color: #8c948e;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+}
+.bullet {
+    display: inline-block;
+    width: 12px;  /* Adjust size */
+    height: 12px; /* Adjust size */
+    border: 1px solid #444645; /* Change color here */
+    border-radius: 50%; /* Makes it a circle */
+    margin-right: 10px;
+    cursor: pointer; /* Adds hover pointer */
+    transition: background-color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+.bullet:hover {
+    background-color: #8c948e; /* Changes color on hover */
+}
+.bullet.completed {
+    background-color: #8c948e; /* Changes color on completion */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12px;
+    height: 12px; /* Makes the tick visible */
+}
+.bullet.completed svg {
+    width: 10px; /* Smaller size */
+    height: 10px;
+    fill: white; /* Makes tick white */
+    stroke: none;
+}
+.inputTask{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.delete-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444645;
+}
