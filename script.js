@@ -1,4 +1,76 @@
+// save tasks in local storage
+function saveTasks(){
+    let tasks = [];
+    document.querySelectorAll(".inputTask li").forEach(li =>{
+        let taskText = li.querySelector("input").value;
+        let isCompleted = li.querySelector(".bullet").classList.contains("completed");
+        tasks.push({text: taskText, completed: isCompleted});
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// retrieve tasks from local storage
+function loadTasks(){
+    let savedTasks = localStorage.getItem("tasks");
+    let taskList = document.querySelector(".inputTask ul");
+    taskList.innerHTML = ""
+    if(savedTasks){
+        savedTasks = JSON.parse(savedTasks);
+
+        savedTasks.forEach(task => {
+            // new <li>
+            let newListitem = document.createElement("li");
+    
+            // new bullet
+            let newBullet = document.createElement("span");
+            newBullet.classList.add("bullet");
+    
+            //new inputfield
+            let newInput = document.createElement("input");
+            newInput.type = "text";
+            newInput.value = task.text;
+            newInput.size = 40;
+
+            // NEW DELETE BUTTON
+            let newDeleteButton = document.createElement("button");
+            newDeleteButton.classList.add("delete-btn");
+            newDeleteButton.textContent = "🗑️";
+
+            // New edit button
+            let newEditButton = document.createElement("button");
+            newEditButton.classList.add("edit-btn");
+            newEditButton.textContent = "✏️";
+    
+            // Checking if task was completed before
+            if(task.completed){
+                newBullet.classList.add("completed");
+                newBullet.innerHTML = `
+    <svg width="12" height="12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.285 6.725a1 1 0 0 0-1.57-1.25l-9.042 11.362-4.161-4.01a1 1 0 1 0-1.394 1.436l5.126 4.939a1 1 0 0 0 1.479-.082l9.562-12.395z" **fill="white" stroke="white" stroke-width="2"**/>
+</svg>
+`;
+
+                newInput.style.textDecoration = "line-through";
+                newInput.style.color = "gray"; // fades text
+            }
+
+            // Append everything to li
+            newListitem.appendChild(newBullet);
+            newListitem.appendChild(newInput);
+            newListitem.appendChild(newDeleteButton);
+            newListitem.appendChild(newEditButton);
+
+            // Append everything to papa ul
+            document.querySelector(".inputTask ul").appendChild(newListitem);
+
+            }
+
+        );
+     }
+    }
+
 document.addEventListener("DOMContentLoaded", function(){
+    loadTasks();
     let addButton = document.querySelector(".inputTask button");
     let inputField = document.querySelector(".inputTask input");
     let listItem = document.querySelector(".inputTask li");
@@ -28,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function(){
  
 
         inputField.focus();
+        saveTasks();
     });
 
     // adding new task
@@ -69,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
             // focus on new input
             newInput.focus();
+            saveTasks();
         }
     });
 
@@ -82,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 return; // Do nothing if input is empty
             }
             event.target.parentElement.remove(); // Otherwise, delete task
+            saveTasks();
         }
 
         // EDIT TASK
@@ -96,12 +171,13 @@ document.addEventListener("DOMContentLoaded", function(){
                 taskInput.disabled = true;
                 event.target.textContent = "✏️";
             }
+            saveTasks();
         }
 
         // TASK COMPLETE
         let bullet = event.target.closest(".bullet");
         if(bullet){
-            let taskInput = event.target.nextElementSibling; //i/p field next to the bullet
+            let taskInput = bullet.nextElementSibling; //i/p field next to the bullet
 
             // Toggle b/w completed and not completed
             if(!bullet.classList.contains("completed")){
@@ -121,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 taskInput.style.textDecoration = "none";
                 taskInput.style.color = "black"
             }
+            saveTasks();
 
         }
     });
